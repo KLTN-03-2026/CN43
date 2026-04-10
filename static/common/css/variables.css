@@ -1,0 +1,16 @@
+:root {
+  --bg: #000000;
+  --bg-deep: #0d0d0d;
+  --surface: #ffffff;
+  --surface-dark: #0f0f0f;
+  --text: #1a1a1a;
+  --muted: #6e6e6e;
+  --border: rgba(37, 56, 61, 0.12);
+  --accent: #ed1c24;
+  --accent-hover: #c41018;
+  --success: #1f7b56;
+  --danger: #b24333;
+  --shadow: 0 18px 50px rgba(0, 0, 0, 0.18);
+  --radius: 22px;
+  --font-sans: "Segoe UI", Tahoma, Geneva, Verdana, Arial, sans-serif;
+}

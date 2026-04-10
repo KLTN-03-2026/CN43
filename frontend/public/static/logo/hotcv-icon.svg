@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 280" width="520" height="280">
+  <defs>
+    <!-- Flame gradient - orange to yellow -->
+    <radialGradient id="flameCore" cx="50%" cy="80%" r="60%">
+      <stop offset="0%" stop-color="#FFE000"/>
+      <stop offset="40%" stop-color="#FF8C00"/>
+      <stop offset="100%" stop-color="#CC2200"/>
+    </radialGradient>
+
+```
+<!-- Left flame gradient -->
+<linearGradient id="flameLeft" x1="0%" y1="100%" x2="30%" y2="0%">
+  <stop offset="0%" stop-color="#D63000"/>
+  <stop offset="50%" stop-color="#FF6600"/>
+  <stop offset="100%" stop-color="#FFD700"/>
+</linearGradient>
+
+<!-- Right flame gradient -->
+<linearGradient id="flameRight" x1="100%" y1="100%" x2="60%" y2="0%">
+  <stop offset="0%" stop-color="#CC2200"/>
+  <stop offset="50%" stop-color="#FF5500"/>
+  <stop offset="100%" stop-color="#FFAA00"/>
+</linearGradient>
+
+<!-- Center flame -->
+<linearGradient id="flameCenter" x1="50%" y1="100%" x2="50%" y2="0%">
+  <stop offset="0%" stop-color="#FF4400"/>
+  <stop offset="40%" stop-color="#FF8800"/>
+  <stop offset="100%" stop-color="#FFE000"/>
+</linearGradient>
+
+<!-- Ring gradient (gold/magenta) -->
+<linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+  <stop offset="0%" stop-color="#D4A000"/>
+  <stop offset="30%" stop-color="#FFD700"/>
+  <stop offset="60%" stop-color="#C0007A"/>
+  <stop offset="100%" stop-color="#8B0050"/>
+</linearGradient>
+
+<!-- Arrow gradient -->
+<linearGradient id="arrowGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+  <stop offset="0%" stop-color="#C05000"/>
+  <stop offset="50%" stop-color="#FF8800"/>
+  <stop offset="100%" stop-color="#FFD700"/>
+</linearGradient>
+
+<!-- Checkmark gradient -->
+<linearGradient id="checkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+  <stop offset="0%" stop-color="#CC0060"/>
+  <stop offset="100%" stop-color="#880040"/>
+</linearGradient>
+
+<!-- HOT text gradient -->
+<linearGradient id="hotGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+  <stop offset="0%" stop-color="#FFB300"/>
+  <stop offset="40%" stop-color="#FF6600"/>
+  <stop offset="100%" stop-color="#CC2200"/>
+</linearGradient>
+
+<!-- CV text gradient -->
+<linearGradient id="cvGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+  <stop offset="0%" stop-color="#FF6600"/>
+  <stop offset="100%" stop-color="#AA1100"/>
+</linearGradient>
+
+<!-- Drop shadow filter -->
+<filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+  <feDropShadow dx="1" dy="2" stdDeviation="2" flood-color="#00000033"/>
+</filter>
+
+<filter id="glow">
+  <feGaussianBlur stdDeviation="3" result="blur"/>
+  <feMerge>
+    <feMergeNode in="blur"/>
+    <feMergeNode in="SourceGraphic"/>
+  </feMerge>
+</filter>
+```
+
+  </defs>
+
+  <!-- ===== FLAME GROUP ===== -->
+
+  <g transform="translate(55, 20)" filter="url(#shadow)">
+
+```
+<!-- Back left flame -->
+<path d="M 60,200 C 40,170 25,140 35,100 C 42,70 55,55 60,30 C 65,55 60,80 65,110 C 70,130 75,150 70,175 Z"
+      fill="url(#flameLeft)" opacity="0.9"/>
+
+<!-- Back right flame -->
+<path d="M 110,200 C 130,165 145,130 130,90 C 120,60 108,45 105,20 C 100,45 108,70 105,100 C 102,125 95,150 105,180 Z"
+      fill="url(#flameRight)" opacity="0.85"/>
+
+<!-- Main center flame (tallest) -->
+<path d="M 85,210 C 55,185 35,155 40,115 C 45,85 60,65 68,35 C 72,55 70,75 75,95 C 80,115 90,130 88,155 C 86,170 82,190 85,210 Z"
+      fill="url(#flameCenter)"/>
+
+<!-- Main flame body -->
+<path d="M 50,210 C 30,180 20,145 30,110 C 38,82 55,62 60,30 C 70,55 68,80 72,105 C 76,128 85,148 83,173 C 81,190 75,200 50,210 Z"
+      fill="url(#flameLeft)" opacity="0.7"/>
+
+<path d="M 120,210 C 145,178 155,140 142,105 C 132,78 115,60 112,28 C 102,52 107,78 104,103 C 101,125 93,148 100,172 C 106,190 115,200 120,210 Z"
+      fill="url(#flameRight)" opacity="0.7"/>
+
+<!-- Bright core flame -->
+<path d="M 85,205 C 65,180 55,155 62,125 C 68,100 80,82 84,55 C 90,78 88,100 93,122 C 97,142 102,162 96,182 C 92,195 88,200 85,205 Z"
+      fill="url(#flameCore)" opacity="0.95"/>
+```
+
+  </g>
+
+  <!-- ===== RING (Circle with open top) ===== -->
+
+  <g transform="translate(55, 20)" filter="url(#shadow)">
+    <!-- Ring arc - drawn as thick stroke arc, open at top-right -->
+    <path d="M 118,95 C 145,105 160,135 155,165 C 148,200 120,220 88,220 C 56,220 28,200 22,165 C 16,130 35,100 65,92"
+          fill="none" stroke="url(#ringGrad)" stroke-width="18" stroke-linecap="round"/>
+  </g>
+
+  <!-- ===== ARROW (diagonal, top-right direction) ===== -->
+
+  <g transform="translate(55, 20)" filter="url(#shadow)">
+    <!-- Arrow shaft -->
+    <line x1="70" y1="165" x2="128" y2="88"
+          stroke="url(#arrowGrad)" stroke-width="13" stroke-linecap="round"/>
+    <!-- Arrow head -->
+    <polygon points="128,88 112,85 125,100"
+             fill="#FFD700"/>
+    <polygon points="128,88 115,82 126,98"
+             fill="#FF8800"/>
+  </g>
+
+  <!-- ===== CHECKMARK ===== -->
+
+  <g transform="translate(55, 20)" filter="url(#shadow)">
+    <polyline points="48,158 72,185 118,128"
+              fill="none" stroke="url(#checkGrad)" stroke-width="14"
+              stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- ===== TEXT: HOT ===== -->
+
+  <g filter="url(#shadow)">
+    <!-- HOT shadow/outline -->
+    <text x="245" y="155"
+          font-family="'Arial Black', 'Impact', sans-serif"
+          font-size="88" font-weight="900"
+          fill="#7A1500" letter-spacing="-2">HOT</text>
+    <!-- HOT main -->
+    <text x="243" y="152"
+          font-family="'Arial Black', 'Impact', sans-serif"
+          font-size="88" font-weight="900"
+          fill="url(#hotGrad)" letter-spacing="-2">HOT</text>
+  </g>
+
+  <!-- ===== TEXT: CV ===== -->
+
+  <g filter="url(#shadow)">
+    <!-- CV shadow -->
+    <text x="268" y="238"
+          font-family="'Arial Black', 'Impact', sans-serif"
+          font-size="88" font-weight="900"
+          fill="#7A1500" letter-spacing="-2">CV</text>
+    <!-- CV main -->
+    <text x="266" y="235"
+          font-family="'Arial Black', 'Impact', sans-serif"
+          font-size="88" font-weight="900"
+          fill="url(#cvGrad)" letter-spacing="-2">CV</text>
+  </g>
+
+</svg>

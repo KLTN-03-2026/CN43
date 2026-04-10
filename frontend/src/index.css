@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  font-family: 'Be Vietnam Pro', 'Noto Sans', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .btn {
+    @apply transition duration-200 ease-in-out;
+  }
+  
+  .btn-lg {
+    @apply px-8 py-3 text-lg font-semibold;
+  }
+  
+  .toast {
+    @apply fixed bottom-4 right-4 rounded-lg px-6 py-3 text-black shadow-lg;
+    @apply bg-white border border-gray-300;
+    @apply transition-all duration-300;
+  }
+  
+  .toast.error {
+    @apply bg-red-600 border-red-500;
+  }
+  
+  .form-group {
+    @apply flex flex-col gap-2;
+  }
+  
+  .form-input {
+    @apply w-full rounded-lg border border-white/20 bg-white/5 px-4 py-3 text-white placeholder-white/50;
+    @apply focus:border-brand-accent focus:outline-none focus:ring-2 focus:ring-brand-accent/30;
+  }
+  
+  .form-label {
+    @apply text-sm font-medium text-white/80;
+  }
+}
+
+@keyframes banner-marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-shell:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+.marquee-track {
+  animation: banner-marquee-scroll 22s linear infinite;
+}
+
+.login-hero {
+  background:
+    radial-gradient(circle at 14% 15%, rgba(255, 255, 255, 0.2), transparent 28%),
+    radial-gradient(circle at 90% 8%, rgba(210, 210, 255, 0.23), transparent 30%),
+    linear-gradient(135deg, #5645f2 0%, #6a5bea 42%, #7667e4 100%);
+}
+
+.login-float {
+  animation: login-float 4.8s ease-in-out infinite;
+}
+
+@keyframes login-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-7px);
+  }
+}
