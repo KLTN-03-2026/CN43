@@ -98,7 +98,7 @@ export const Home = () => {
       </section>
 
       <section className="it-skills mb-16">
-        <h2 className="mb-8 text-2xl font-bold text-white">Kỹ năng IT đang cần tuyển</h2>
+        <h2 className="mb-8 text-2xl font-bold text-white">Kỹ năng đang cần tuyển</h2>
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
           {skills.map((skill) => (
             <SkillTag key={skill.name} skill={skill.name} count={skill.count} />
@@ -107,7 +107,7 @@ export const Home = () => {
       </section>
 
       <section className="cta-section mb-8 rounded-[20px] border border-brand-accent/30 bg-gradient-to-r from-brand-accent/20 to-blue-500/20 p-8 text-center md:p-12">
-        <h2 className="mb-4 text-3xl font-bold text-white">Sẵn sàng tìm việc IT tiếp theo?</h2>
+        <h2 className="mb-4 text-3xl font-bold text-white">Sẵn sàng tìm công việc tiếp theo?</h2>
         <p className="mx-auto mb-6 max-w-2xl text-white/70">
           Tham gia cùng hàng ngàn ứng viên để tìm công việc mơ ước nhanh hơn, rõ ràng hơn và dễ theo dõi hơn.
         </p>

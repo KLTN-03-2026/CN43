@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const COPY = {
   vi: {
-    eyebrow: 'IT jobs for top developers',
+    eyebrow: 'Nhiều cơ hội việc làm nổi bật',
     heroCount: '1,188',
-    heroLead: 'Việc làm IT cho Developer',
+    heroLead: 'Việc làm cho nhiều ngành nghề',
     heroAccent: "'Chất'",
     heroSub:
       'Tìm đúng việc bằng bộ lọc siêu nhanh, theo dõi hồ sơ đã nộp và quay lại thao tác quan trọng trong một giao diện gọn gàng hơn.',
@@ -16,10 +16,10 @@ const COPY = {
     cities: ['Hà Nội', 'TP.HCM', 'Đà Nẵng'],
     tags: ['Java', 'ReactJS', '.NET', 'Tester', 'PHP', 'NodeJS', 'Business Analysis', 'Team Management'],
     marquee: [
-      'Khám phá Top 30 Công ty IT tốt nhất 2026',
-      'Công ty IT Tốt nhất Việt Nam 2026',
-      'Khám phá bảng xếp hạng lương IT',
-      'Top công ty đáng mơ ước cho developer',
+      'Khám phá Top 30 công ty tuyển dụng tốt nhất 2026',
+      'Doanh nghiệp nổi bật với môi trường làm việc hấp dẫn',
+      'Khám phá bảng xếp hạng mức lương theo ngành nghề',
+      'Top công ty đáng mơ ước cho người đi làm',
     ],
     features: [
       {
@@ -31,7 +31,7 @@ const COPY = {
       },
       {
         badge: 'HOT',
-        title: 'Mẫu CV chuẩn IT',
+        title: 'Mẫu CV chuyên nghiệp',
         desc: 'Chuẩn hóa hồ sơ để ứng tuyển nhanh và rõ năng lực hơn.',
         tone: 'sky',
         icon: 'doc',
@@ -52,7 +52,7 @@ const COPY = {
       },
       {
         badge: 'HOT',
-        title: 'Báo cáo lương IT',
+        title: 'Báo cáo lương theo ngành',
         desc: 'So sánh mức lương để đưa ra quyết định tốt hơn cho bước tiếp theo.',
         tone: 'amber',
         icon: 'chart',
@@ -60,9 +60,9 @@ const COPY = {
     ],
   },
   en: {
-    eyebrow: 'IT jobs for top developers',
+    eyebrow: 'Top opportunities across industries',
     heroCount: '1,188',
-    heroLead: 'IT Jobs for Developers',
+    heroLead: 'Jobs Across Many Professions',
     heroAccent: "'Quality'",
     heroSub:
       'Find the right job with lightning-fast filters, track submitted applications, and return to key actions in one cleaner interface.',
@@ -73,10 +73,10 @@ const COPY = {
     cities: ['Hanoi', 'Ho Chi Minh City', 'Da Nang'],
     tags: ['Java', 'ReactJS', '.NET', 'Tester', 'PHP', 'NodeJS', 'Business Analysis', 'Team Management'],
     marquee: [
-      'Discover Top 30 Best IT Companies 2026',
-      'Best IT Companies in Vietnam 2026',
-      'Explore the IT salary ranking',
-      'Dream workplaces for developers',
+      'Discover Top 30 Best Hiring Companies 2026',
+      'Leading workplaces in Vietnam 2026',
+      'Explore salary rankings across industries',
+      'Dream workplaces for job seekers',
     ],
     features: [
       {
@@ -88,7 +88,7 @@ const COPY = {
       },
       {
         badge: 'HOT',
-        title: 'Standard IT CV',
+        title: 'Professional CV Templates',
         desc: 'Polish your profile so you can apply faster with clearer strengths.',
         tone: 'sky',
         icon: 'doc',
@@ -109,7 +109,7 @@ const COPY = {
       },
       {
         badge: 'HOT',
-        title: 'IT salary report',
+        title: 'Industry salary report',
         desc: 'Compare salary ranges and make your next move with more clarity.',
         tone: 'amber',
         icon: 'chart',
@@ -173,16 +173,10 @@ function FeatureIcon({ icon }) {
 
 export const HeroBanner = () => {
   const navigate = useNavigate();
-  const [language, setLanguage] = useState(() => localStorage.getItem('jp_lang') || 'vi');
   const [keyword, setKeyword] = useState('');
   const [location, setLocation] = useState('');
 
-  const copy = COPY[language] || COPY.vi;
-
-  useEffect(() => {
-    localStorage.setItem('jp_lang', language);
-    document.documentElement.lang = language;
-  }, [language]);
+  const copy = COPY.vi;
 
   const handleSearch = (event) => {
     event.preventDefault();
@@ -214,7 +208,7 @@ export const HeroBanner = () => {
       </div>
 
       <div className="relative">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
           <div className="max-w-[900px]">
             <p className="mb-5 inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.34em] text-white/65">
               {copy.eyebrow}
@@ -228,26 +222,6 @@ export const HeroBanner = () => {
             </h1>
 
             <p className="mt-5 max-w-[760px] text-base leading-8 text-brand-muted sm:text-lg">{copy.heroSub}</p>
-          </div>
-
-          <div className="inline-flex items-center gap-2 self-start rounded-full border border-white/10 bg-white/5 p-1">
-            {['vi', 'en'].map((lang) => {
-              const active = language === lang;
-
-              return (
-                <button
-                  key={lang}
-                  type="button"
-                  onClick={() => setLanguage(lang)}
-                  className={[
-                    'rounded-full px-3 py-1.5 text-xs font-bold uppercase tracking-[0.22em] transition',
-                    active ? 'bg-white text-black' : 'text-white/70 hover:bg-white/10 hover:text-white',
-                  ].join(' ')}
-                >
-                  {lang}
-                </button>
-              );
-            })}
           </div>
         </div>
 

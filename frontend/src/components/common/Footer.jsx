@@ -9,7 +9,7 @@ export const Footer = () => {
           <div>
             <h3 className="text-lg font-bold text-white mb-4">HOT CV</h3>
             <p className="text-white/60 text-sm">
-              Nền tảng tuyển dụng IT hàng đầu tại Việt Nam.
+              Nền tảng tuyển dụng hàng đầu tại Việt Nam.
             </p>
           </div>
 

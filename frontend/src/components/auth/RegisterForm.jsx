@@ -48,7 +48,7 @@ export const RegisterForm = () => {
 	};
 
 	return (
-		<div className="relative mx-auto flex min-h-[calc(100vh-4.5rem)] w-full items-center justify-center overflow-hidden bg-[#000] px-4 py-8 sm:px-6">
+		<div className="relative mx-auto flex min-h-[calc(100vh-4.5rem)] w-full items-center justify-center overflow-hidden bg-[#0d0d0d] px-4 py-8 sm:px-6">
 
 			<div className="relative z-10 w-full max-w-[460px] rounded-[28px] border border-white/15 bg-gradient-to-b from-[#1b1e2a]/90 to-[#131621]/90 p-7 shadow-[0_24px_90px_rgba(0,0,0,0.6)] backdrop-blur-xl sm:p-9">
 				<div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full border border-white/20 bg-white/[0.04] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.03)]">
