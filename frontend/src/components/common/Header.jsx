@@ -186,8 +186,9 @@ const Header = () => {
               </button>
 
               <div className="invisible absolute right-0 top-full z-[70] w-[420px] pt-2 opacity-0 transition duration-200 group-hover/profile:visible group-hover/profile:opacity-100 group-focus-within/profile:visible group-focus-within/profile:opacity-100">
-                <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-[0_20px_50px_-20px_rgba(15,23,42,0.35)]">
-                  <div className="flex items-start gap-4 border-b border-gray-200 p-4">
+                <div className="rounded-2xl border border-gray-200 bg-white shadow-[0_20px_50px_-20px_rgba(15,23,42,0.35)]">
+                  <div className="max-h-[75vh] overflow-y-auto">
+                    <div className="flex items-start gap-4 border-b border-gray-200 p-4">
                     <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gray-200 text-lg font-bold text-gray-600">
                       {avatarLabel}
                     </div>
@@ -198,7 +199,7 @@ const Header = () => {
                     </div>
                   </div>
 
-                  <div className="max-h-[70vh] overflow-y-auto py-1">
+                  <div className="py-1">
                     {profileSections.map((section) => (
                       <ProfileSection
                         key={section.title}
@@ -210,14 +211,15 @@ const Header = () => {
                     ))}
                   </div>
 
-                  <div className="border-t border-gray-200 p-4">
-                    <button
-                      type="button"
-                      className="w-full rounded-full bg-slate-100 px-4 py-3 text-base font-semibold text-slate-600 transition hover:bg-slate-200"
-                      onClick={handleLogout}
-                    >
-                      Đăng xuất
-                    </button>
+                    <div className="sticky bottom-0 border-t border-gray-200 bg-white p-4">
+                      <button
+                        type="button"
+                        className="w-full rounded-full bg-slate-100 px-4 py-3 text-base font-semibold text-slate-600 transition hover:bg-slate-200"
+                        onClick={handleLogout}
+                      >
+                        Đăng xuất
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -3,6 +3,20 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { useToast } from '../../hooks/useToast';
 
+const EyeIcon = () => (
+	<svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="h-5 w-5">
+		<path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z" stroke="currentColor" strokeWidth="1.6" />
+		<circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.6" />
+	</svg>
+);
+
+const EyeOffIcon = () => (
+	<svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="h-5 w-5">
+		<path d="M3 3l18 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+		<path d="M10.6 6.3A10.8 10.8 0 0112 6c6.5 0 10 6 10 6a17.9 17.9 0 01-3.3 4.1M6.7 9.2A17.8 17.8 0 002 12s3.5 6 10 6a10 10 0 003.2-.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+	</svg>
+);
+
 export const RegisterForm = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -11,6 +25,7 @@ export const RegisterForm = () => {
 	const [email, setEmail] = useState('');
 	const [fullName, setFullName] = useState('');
 	const [password, setPassword] = useState('');
+	const [showPassword, setShowPassword] = useState(false);
 	const [role, setRole] = useState('candidate');
 
 	const backToLoginState = { from: location.state?.from || '/' };
@@ -33,64 +48,84 @@ export const RegisterForm = () => {
 	};
 
 	return (
-		<div className="mx-auto flex min-h-[calc(100vh-9rem)] w-full max-w-6xl items-center justify-center px-4 py-8 sm:px-6 lg:px-8">
-			<div className="grid w-full overflow-hidden rounded-[28px] bg-[#f5f5f7] shadow-[0_30px_80px_rgba(30,38,68,0.18)] lg:grid-cols-[1fr_1.05fr]">
-				<section className="flex items-center justify-center px-6 py-10 sm:px-10 lg:px-14 xl:px-20">
-					<div className="w-full max-w-[360px]">
-						<h1 className="mt-0 text-[34px] font-extrabold leading-tight text-[#1f1f26]">Create account</h1>
-						<p className="mt-2 text-sm text-[#70707b]">Tạo tài khoản để tiếp tục</p>
+		<div className="relative mx-auto flex min-h-[calc(100vh-4.5rem)] w-full items-center justify-center overflow-hidden bg-[#000] px-4 py-8 sm:px-6">
 
-						<form onSubmit={handleSubmit} className="mt-9 space-y-5">
-							<div className="space-y-2">
-								<label htmlFor="register-name" className="text-sm font-semibold text-[#27272f]">Full name</label>
-								<input id="register-name" type="text" value={fullName} onChange={(event) => setFullName(event.target.value)} placeholder="Nguyen Van A" className="h-12 w-full rounded-[10px] border border-[#dfdfeb] bg-white px-4 text-[15px] text-[#18181f] outline-none transition focus:border-[#5a4ff3] focus:ring-4 focus:ring-[#5a4ff3]/15" required />
-							</div>
+			<div className="relative z-10 w-full max-w-[460px] rounded-[28px] border border-white/15 bg-gradient-to-b from-[#1b1e2a]/90 to-[#131621]/90 p-7 shadow-[0_24px_90px_rgba(0,0,0,0.6)] backdrop-blur-xl sm:p-9">
+				<div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full border border-white/20 bg-white/[0.04] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.03)]">
+					<img src="/static/logo/hotcv-icon.svg" alt="HOT CV icon" className="h-14 w-14" />
+				</div>
 
-							<div className="space-y-2">
-								<label htmlFor="register-email" className="text-sm font-semibold text-[#27272f]">Email Address</label>
-								<input id="register-email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="email" placeholder="you@example.com" className="h-12 w-full rounded-[10px] border border-[#dfdfeb] bg-white px-4 text-[15px] text-[#18181f] outline-none transition focus:border-[#5a4ff3] focus:ring-4 focus:ring-[#5a4ff3]/15" required />
-							</div>
+				<h1 className="mt-7 text-center text-5xl font-extrabold leading-none tracking-tight text-white sm:text-6xl">
+					Đăng Ký
+				</h1>
+				<p className="mt-3 text-center text-base text-white/65 sm:text-lg">
+					Đã có tài khoản?{' '}
+					<Link to="/login" state={backToLoginState} className="font-semibold text-red-500 transition hover:text-red-400">
+						Đăng nhập ngay
+					</Link>
+				</p>
 
-							<div className="space-y-2">
-								<label htmlFor="register-password" className="text-sm font-semibold text-[#27272f]">Password</label>
-								<input id="register-password" type="password" value={password} onChange={(event) => setPassword(event.target.value)} autoComplete="new-password" placeholder="Enter your password" className="h-12 w-full rounded-[10px] border border-[#dfdfeb] bg-white px-4 text-[15px] text-[#18181f] outline-none transition focus:border-[#5a4ff3] focus:ring-4 focus:ring-[#5a4ff3]/15" required />
-							</div>
+				<form onSubmit={handleSubmit} className="mt-8 space-y-4">
+					<input
+						id="register-name"
+						type="text"
+						value={fullName}
+						onChange={(event) => setFullName(event.target.value)}
+						placeholder="Họ và tên"
+						className="h-14 w-full rounded-xl border border-white/20 bg-white/[0.04] px-4 text-base text-white outline-none transition placeholder:text-white/35 focus:border-red-400/80 focus:ring-4 focus:ring-red-500/15"
+						required
+					/>
 
-							<div className="space-y-2">
-								<label htmlFor="register-role" className="text-sm font-semibold text-[#27272f]">Account type</label>
-								<select id="register-role" value={role} onChange={(event) => setRole(event.target.value)} className="h-12 w-full rounded-[10px] border border-[#dfdfeb] bg-white px-4 text-[15px] text-[#18181f] outline-none transition focus:border-[#5a4ff3] focus:ring-4 focus:ring-[#5a4ff3]/15">
-									<option value="candidate">Candidate</option>
-									<option value="employer">Employer</option>
-								</select>
-							</div>
+					<input
+						id="register-email"
+						type="email"
+						value={email}
+						onChange={(event) => setEmail(event.target.value)}
+						autoComplete="email"
+						placeholder="Địa chỉ email"
+						className="h-14 w-full rounded-xl border border-white/20 bg-white/[0.04] px-4 text-base text-white outline-none transition placeholder:text-white/35 focus:border-red-400/80 focus:ring-4 focus:ring-red-500/15"
+						required
+					/>
 
-							<button type="submit" disabled={Boolean(isLoading)} className="flex h-12 w-full items-center justify-center gap-2 rounded-[10px] bg-[#4f46e5] px-4 text-sm font-semibold text-white transition hover:bg-[#443bda] disabled:cursor-not-allowed disabled:bg-[#9894de]">
-								{isLoading ? 'Creating...' : 'Register'}
-							</button>
-						</form>
-
-						<p className="mt-6 text-center text-sm text-[#666674]">
-							Already have an account?{' '}
-							<Link to="/login" state={backToLoginState} className="font-semibold text-[#4f46e5] transition hover:text-[#3f37cc]">
-								Sign In
-							</Link>
-						</p>
+					<div className="relative">
+						<input
+							id="register-password"
+							type={showPassword ? 'text' : 'password'}
+							value={password}
+							onChange={(event) => setPassword(event.target.value)}
+							autoComplete="new-password"
+							placeholder="Mật khẩu"
+							className="h-14 w-full rounded-xl border border-white/20 bg-white/[0.04] px-4 pr-12 text-base text-white outline-none transition placeholder:text-white/35 focus:border-red-400/80 focus:ring-4 focus:ring-red-500/15"
+							required
+						/>
+						<button
+							type="button"
+							onClick={() => setShowPassword((visible) => !visible)}
+							className="absolute inset-y-0 right-3 inline-flex items-center text-white/55 transition hover:text-white"
+							aria-label={showPassword ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'}
+						>
+							{showPassword ? <EyeOffIcon /> : <EyeIcon />}
+						</button>
 					</div>
-				</section>
 
-				<section className="login-hero relative hidden min-h-[680px] overflow-hidden p-5 lg:block">
-					<div className="relative h-full rounded-[30px] border border-white/25 bg-white/8 p-7 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)] backdrop-blur-[2px]">
-						<div className="absolute left-1/2 top-10 h-16 w-16 -translate-x-1/2 rounded-full bg-gradient-to-b from-[#2f2f3f] to-[#0f0f16] shadow-[0_18px_35px_rgba(0,0,0,0.55)]" />
-						<div className="absolute left-1/2 top-0 h-20 w-px -translate-x-1/2 bg-white/50" />
-						<div className="absolute inset-x-8 top-16 h-[1px] bg-white/20" />
-						<div className="absolute inset-x-8 top-40 h-[1px] bg-white/20" />
-						<div className="absolute inset-x-8 top-64 h-[1px] bg-white/20" />
-						<div className="absolute inset-x-8 bottom-8">
-							<p className="text-[36px] font-extrabold leading-tight tracking-tight text-white/95">Join the platform</p>
-							<p className="mt-3 max-w-sm text-base text-white/80">Đăng ký xong, bạn sẽ được đưa sang trang xác minh và sau đó quay về giao diện chính.</p>
-						</div>
-					</div>
-				</section>
+					<select
+						id="register-role"
+						value={role}
+						onChange={(event) => setRole(event.target.value)}
+						className="h-14 w-full rounded-xl border border-white/20 bg-white/[0.04] px-4 text-base text-white outline-none transition focus:border-red-400/80 focus:ring-4 focus:ring-red-500/15"
+					>
+						<option value="candidate" className="bg-[#10121a]">Ứng viên</option>
+						<option value="employer" className="bg-[#10121a]">Nhà tuyển dụng</option>
+					</select>
+
+					<button
+						type="submit"
+						disabled={Boolean(isLoading)}
+						className="mt-2 flex h-14 w-full items-center justify-center rounded-xl bg-[#ef1f2d] text-xl font-bold text-white shadow-[0_12px_35px_rgba(239,31,45,0.45)] transition hover:bg-[#ff2b3a] disabled:cursor-not-allowed disabled:opacity-70"
+					>
+						{isLoading ? 'Đang tạo tài khoản...' : 'Đăng Ký'}
+					</button>
+				</form>
 			</div>
 		</div>
 	);
