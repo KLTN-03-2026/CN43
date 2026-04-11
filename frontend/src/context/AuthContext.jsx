@@ -1,5 +1,5 @@
 import React, { createContext, useCallback, useEffect, useMemo, useState } from 'react';
-import { apiGet, apiPost } from '../services/api';
+import { apiGet, apiPatch, apiPost } from '../services/api';
 
 const AuthContext = createContext(null);
 
@@ -142,6 +142,22 @@ export const AuthProvider = ({ children }) => {
 		return apiPost('/auth/verify-otp', { body: { email, otp } });
 	}, []);
 
+	const updateProfile = useCallback(
+		async (payload) => {
+			if (!token) {
+				throw new Error('Bạn cần đăng nhập để cập nhật hồ sơ');
+			}
+
+			const updatedUser = await apiPatch('/auth/me', { body: payload, token });
+			const stored = readStoredAuth();
+			persistAuth({ token, user: updatedUser, rememberMe: stored.storageKind !== 'session' });
+			setUser(updatedUser);
+
+			return updatedUser;
+		},
+		[token]
+	);
+
 	const value = useMemo(
 		() => ({
 			user,
@@ -152,9 +168,10 @@ export const AuthProvider = ({ children }) => {
 			logout,
 			register,
 			verify,
+			updateProfile,
 			hydrateFromStorage,
 		}),
-		[hydrateFromStorage, isLoading, login, logout, register, token, user, verify]
+		[hydrateFromStorage, isLoading, login, logout, register, token, updateProfile, user, verify]
 	);
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

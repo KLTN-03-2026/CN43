@@ -2,8 +2,60 @@ import React, { useMemo, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 
+const jobPositions = [
+  'Nhân viên kinh doanh',
+  'Kế toán',
+  'Marketing',
+  'Hành chính nhân sự',
+  'Chăm sóc khách hàng',
+  'Ngân hàng',
+  'IT',
+];
+
+const jobFields = [
+  'Lao động phổ thông',
+  'Senior',
+  'Kỹ sư xây dựng',
+  'Thiết kế đồ họa',
+  'Bất động sản',
+  'Giáo dục',
+  'Telesales',
+];
+
 const navItems = [
-  { label: 'Việc làm', to: '/jobs', chevron: true },
+  {
+    label: 'Việc làm',
+    to: '/jobs',
+    chevron: true,
+    dropdown: {
+      columns: [
+        {
+          title: 'VIỆC LÀM',
+          items: [
+            { label: 'Tìm việc làm', to: '/jobs' },
+            { label: 'Việc làm đã lưu', to: '/jobs' },
+            { label: 'Việc làm đã ứng tuyển', to: '/applications' },
+            { label: 'Việc làm phù hợp', to: '/jobs' },
+          ],
+        },
+        {
+          title: 'VIỆC LÀM THEO VỊ TRÍ',
+          items: jobPositions.map((pos) => ({ label: pos, to: '/jobs' })),
+        },
+        {
+          title: 'VIỆC LÀM THEO LĨNH VỰC',
+          items: jobFields.map((field) => ({ label: field, to: '/jobs' })),
+        },
+        {
+          title: 'CÔNG TY',
+          items: [
+            { label: 'Danh sách công ty', to: '/jobs' },
+            { label: 'Công ty (Pro)', to: '/jobs', badge: 'Pro' },
+          ],
+        },
+      ],
+    },
+  },
   { label: 'Tạo CV', to: '/jobs', chevron: true },
   { label: 'Công cụ', to: '/jobs', chevron: true },
   { label: 'Cẩm nang nghề nghiệp', to: '/jobs', chevron: true },
@@ -92,11 +144,38 @@ const ChevronDownIcon = () => (
   </svg>
 );
 
+const NavDropdown = ({ item }) => (
+  <div className="invisible absolute left-0 top-full z-[60] w-max pt-2 opacity-0 transition duration-200 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+    <div className="overflow-hidden rounded-2xl border border-gray-800 bg-[#0d0d0d] shadow-[0_20px_50px_-20px_rgba(15,23,42,0.35)]">
+      <div className="grid gap-0" style={{ gridTemplateColumns: `repeat(${item.dropdown.columns.length}, 1fr)` }}>
+        {item.dropdown.columns.map((column, colIdx) => (
+          <div key={colIdx} className={`px-6 py-4 ${colIdx > 0 ? 'border-l border-gray-800' : ''}`}>
+            <h3 className="mb-3 text-xs font-bold tracking-wide text-gray-400">{column.title}</h3>
+            <ul className="space-y-2">
+              {column.items.map((subItem, itemIdx) => (
+                <li key={itemIdx}>
+                  <Link
+                    to={subItem.to}
+                    className="inline-flex items-center gap-2 text-sm font-medium text-gray-300 transition hover:text-emerald-400"
+                  >
+                    {subItem.label}
+                    {subItem.badge && <span className="rounded bg-orange-900 px-2 py-0.5 text-xs font-semibold text-orange-400">{subItem.badge}</span>}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+);
+
 const ProfileSection = ({ title, items, defaultOpen, onItemSelect }) => (
-  <details className="group/section border-b border-gray-200 px-4 py-3 last:border-b-0" open={defaultOpen}>
-    <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-base font-semibold text-slate-700">
+  <details className="group/section border-b border-gray-800 px-4 py-3 last:border-b-0" open={defaultOpen}>
+    <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-base font-semibold text-gray-200">
       <span>{title}</span>
-      <svg viewBox="0 0 20 20" aria-hidden="true" className="h-4 w-4 text-slate-500 transition group-open/section:rotate-180">
+      <svg viewBox="0 0 20 20" aria-hidden="true" className="h-4 w-4 text-gray-400 transition group-open/section:rotate-180">
         <path d="M5 8l5 5 5-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     </summary>
@@ -107,7 +186,7 @@ const ProfileSection = ({ title, items, defaultOpen, onItemSelect }) => (
             key={`${title}-${item.label}`}
             to={item.to}
             onClick={onItemSelect}
-            className="block w-full rounded-lg px-2 py-1 text-left text-sm font-medium text-slate-500 transition hover:bg-emerald-50 hover:text-emerald-700"
+            className="block w-full rounded-lg px-2 py-1 text-left text-sm font-medium text-gray-400 transition hover:bg-gray-800 hover:text-emerald-400"
           >
             {item.label}
           </Link>
@@ -144,16 +223,18 @@ const Header = () => {
           <img src="/static/logo/hotcv-dark.svg" alt="HotCV" className="h-10 w-auto" />
         </Link>
 
-        <div className="hidden flex-1 items-center justify-start lg:flex lg:gap-1 xl:gap-2">
+        <div className="hidden items-center gap-1 lg:flex xl:gap-2">
           {navItems.map((item) => (
-            <Link
-              key={item.label}
-              to={item.to}
-              className="inline-flex items-center gap-1 rounded-full px-4 py-2 text-[15px] font-semibold text-gray-700 transition hover:bg-gray-100 hover:text-gray-900"
-            >
-              <span>{item.label}</span>
-              {item.chevron && <ChevronDownIcon />}
-            </Link>
+            <div key={item.label} className="group relative">
+              <Link
+                to={item.to}
+                className="inline-flex items-center gap-1 rounded-full px-4 py-2 text-[15px] font-semibold text-gray-700 transition hover:bg-gray-100 hover:text-gray-900"
+              >
+                <span>{item.label}</span>
+                {item.chevron && <ChevronDownIcon />}
+              </Link>
+              {item.dropdown && <NavDropdown item={item} />}
+            </div>
           ))}
         </div>
 
@@ -186,16 +267,16 @@ const Header = () => {
               </button>
 
               <div className="invisible absolute right-0 top-full z-[70] w-[420px] pt-2 opacity-0 transition duration-200 group-hover/profile:visible group-hover/profile:opacity-100 group-focus-within/profile:visible group-focus-within/profile:opacity-100">
-                <div className="rounded-2xl border border-gray-200 bg-white shadow-[0_20px_50px_-20px_rgba(15,23,42,0.35)]">
+                <div className="rounded-2xl border border-gray-800 bg-[#0d0d0d] shadow-[0_20px_50px_-20px_rgba(15,23,42,0.35)]">
                   <div className="max-h-[75vh] overflow-y-auto">
-                    <div className="flex items-start gap-4 border-b border-gray-200 p-4">
-                    <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gray-200 text-lg font-bold text-gray-600">
+                    <div className="flex items-start gap-4 border-b border-gray-800 p-4">
+                    <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gray-700 text-lg font-bold text-gray-300">
                       {avatarLabel}
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="truncate text-base font-semibold text-slate-700">{user?.full_name || 'Người dùng'}</p>
-                      <p className="mt-1 text-sm font-medium text-slate-500">Tài khoản đã xác thực</p>
-                      <p className="mt-1 truncate text-sm text-slate-500">{accountCode} | {user?.email || 'Chưa có email'}</p>
+                      <p className="truncate text-base font-semibold text-gray-100">{user?.full_name || 'Người dùng'}</p>
+                      <p className="mt-1 text-sm font-medium text-gray-400">Tài khoản đã xác thực</p>
+                      <p className="mt-1 truncate text-sm text-gray-400">{accountCode} | {user?.email || 'Chưa có email'}</p>
                     </div>
                   </div>
 
@@ -211,10 +292,10 @@ const Header = () => {
                     ))}
                   </div>
 
-                    <div className="sticky bottom-0 border-t border-gray-200 bg-white p-4">
+                    <div className="sticky bottom-0 border-t border-gray-800 bg-[#0d0d0d] p-4">
                       <button
                         type="button"
-                        className="w-full rounded-full bg-slate-100 px-4 py-3 text-base font-semibold text-slate-600 transition hover:bg-slate-200"
+                        className="w-full rounded-full bg-gray-800 px-4 py-3 text-base font-semibold text-gray-300 transition hover:bg-gray-700"
                         onClick={handleLogout}
                       >
                         Đăng xuất
@@ -248,7 +329,7 @@ const Header = () => {
       </nav>
 
       {isMobileMenuOpen && (
-        <div className="border-t border-gray-200 bg-white px-4 py-4 lg:hidden">
+        <div className="border-t border-gray-800 bg-[#0d0d0d] px-4 py-4 lg:hidden">
           <div className="space-y-2">
             {navItems.map((item) => (
               <Link

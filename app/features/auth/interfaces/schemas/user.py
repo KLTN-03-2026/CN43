@@ -51,6 +51,11 @@ class UserOut(BaseModel):
     model_config = {"from_attributes": True}
 
 
+class UserUpdate(BaseModel):
+    """Profile update schema for current user."""
+    full_name: str = Field(min_length=1, max_length=255, description="Họ và tên (1-255 ký tự)")
+
+
 class Token(BaseModel):
     """JWT token response after login."""
     access_token: str = Field(description="JWT token to use in Authorization header")

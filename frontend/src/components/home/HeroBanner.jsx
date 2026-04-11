@@ -233,8 +233,8 @@ export const HeroBanner = () => {
           <div className="pointer-events-none absolute inset-0 rounded-[28px] bg-brand-accent/15" />
           <div className="pointer-events-none absolute -top-2 left-2 right-2 h-4 rounded-t-[24px] bg-brand-accent/30" />
 
-          <div className="relative z-10 grid gap-3 lg:grid-cols-[250px_minmax(0,1fr)_210px]">
-            <label className="flex items-center gap-3 rounded-[20px] border border-zinc-200 bg-white px-4 py-4 transition focus-within:border-brand-accent/40 focus-within:ring-4 focus-within:ring-brand-accent/10">
+          <div className="relative z-10 grid gap-2 sm:gap-3 grid-cols-1 sm:grid-cols-[1fr_auto] lg:grid-cols-[250px_minmax(0,1fr)_210px]">
+            <label className="flex items-center gap-3 rounded-[20px] border border-zinc-200 bg-white px-3 sm:px-4 py-3 sm:py-4 transition focus-within:border-brand-accent/40 focus-within:ring-4 focus-within:ring-brand-accent/10">
               <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5 shrink-0 text-zinc-500" stroke="currentColor" strokeWidth="1.8">
                 <path
                   d="M12 21s6-4.35 6-10a6 6 0 1 0-12 0c0 5.65 6 10 6 10Z"
@@ -247,7 +247,7 @@ export const HeroBanner = () => {
                 value={location}
                 onChange={(event) => setLocation(event.target.value)}
                 aria-label={copy.searchLocation}
-                className="w-full border-0 bg-transparent p-0 text-base font-semibold text-zinc-900 outline-none focus:ring-0"
+                className="w-full border-0 bg-transparent p-0 text-sm sm:text-base font-semibold text-zinc-900 outline-none focus:ring-0"
               >
                 <option value="">{copy.searchLocation}</option>
                 {copy.cities.map((city) => (
@@ -258,7 +258,7 @@ export const HeroBanner = () => {
               </select>
             </label>
 
-            <label className="flex items-center gap-3 rounded-[20px] border border-zinc-200 bg-white px-4 py-4 transition focus-within:border-brand-accent/40 focus-within:ring-4 focus-within:ring-brand-accent/10">
+            <label className="flex items-center gap-3 rounded-[20px] border border-zinc-200 bg-white px-3 sm:px-4 py-3 sm:py-4 transition focus-within:border-brand-accent/40 focus-within:ring-4 focus-within:ring-brand-accent/10 sm:col-span-1">
               <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5 shrink-0 text-zinc-500" stroke="currentColor" strokeWidth="1.8">
                 <circle cx="11" cy="11" r="6" />
                 <path d="m20 20-4.2-4.2" strokeLinecap="round" />
@@ -267,16 +267,16 @@ export const HeroBanner = () => {
                 type="text"
                 value={keyword}
                 onChange={(event) => setKeyword(event.target.value)}
-                className="w-full border-0 bg-transparent p-0 text-base font-semibold text-zinc-900 placeholder:text-zinc-400 outline-none focus:ring-0"
+                className="w-full border-0 bg-transparent p-0 text-sm sm:text-base font-semibold text-zinc-900 placeholder:text-zinc-400 outline-none focus:ring-0"
                 placeholder={copy.searchPlaceholder}
               />
             </label>
 
             <button
               type="submit"
-              className="inline-flex min-h-[68px] items-center justify-center gap-3 rounded-[20px] bg-brand-accent px-6 text-base font-bold text-white shadow-red-glow transition hover:-translate-y-0.5 hover:bg-[#cf141b]"
+              className="inline-flex min-h-[52px] sm:min-h-[68px] items-center justify-center gap-2 sm:gap-3 rounded-[20px] bg-brand-accent px-3 sm:px-6 text-sm sm:text-base font-bold text-white shadow-red-glow transition hover:-translate-y-0.5 hover:bg-[#cf141b] sm:col-span-full lg:col-span-1"
             >
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/15">
+              <span className="hidden sm:inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/15">
                 <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" stroke="currentColor" strokeWidth="1.8">
                   <circle cx="11" cy="11" r="6" />
                   <path d="m20 20-4.2-4.2" strokeLinecap="round" />

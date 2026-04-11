@@ -82,14 +82,17 @@ const request = async (path, options = {}) => {
 
 export const apiGet = (path, options = {}) => request(path, { ...options, method: 'GET' });
 export const apiPost = (path, options = {}) => request(path, { ...options, method: 'POST' });
+export const apiPatch = (path, options = {}) => request(path, { ...options, method: 'PATCH' });
 export const apiDelete = (path, options = {}) => request(path, { ...options, method: 'DELETE' });
 
 export const get = apiGet;
 export const post = apiPost;
+export const patch = apiPatch;
 export const del = apiDelete;
 
 export default {
 	get: apiGet,
 	post: apiPost,
+	patch: apiPatch,
 	delete: apiDelete,
 };

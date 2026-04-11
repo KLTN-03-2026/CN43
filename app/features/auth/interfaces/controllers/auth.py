@@ -18,6 +18,7 @@ from app.features.auth.interfaces.schemas.user import (
     Token,
     UserCreate,
     UserOut,
+    UserUpdate,
     VerifyOtpRequest,
 )
 from app.common.infrastructure.security import create_access_token, hash_password, verify_password
@@ -145,6 +146,18 @@ async def resend_otp(
 
 @router.get("/me", response_model=UserOut)
 async def me(current: Annotated[User, Depends(get_current_user)]) -> User:
+    return current
+
+
+@router.patch("/me", response_model=UserOut)
+async def update_me(
+    body: UserUpdate,
+    current: Annotated[User, Depends(get_current_user)],
+    db: Annotated[AsyncSession, Depends(get_db)],
+) -> User:
+    current.full_name = body.full_name.strip()
+    await db.commit()
+    await db.refresh(current)
     return current
 
 

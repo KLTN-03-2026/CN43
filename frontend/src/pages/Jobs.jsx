@@ -29,10 +29,10 @@ export const Jobs = () => {
 
   return (
     <div className="jobs-container">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-white mb-2">Việc làm</h1>
+      <div className="mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Việc làm</h1>
         {(keyword || location || company) && (
-          <p className="text-white/60">
+          <p className="text-sm sm:text-base text-white/60">
             Kết quả tìm kiếm
             {keyword && ` cho "${keyword}"`}
             {location && ` tại "${location}"`}
@@ -50,13 +50,13 @@ export const Jobs = () => {
           <p className="text-white/60 mb-4">Không tìm thấy việc làm</p>
           <button
             onClick={() => navigate('/jobs')}
-            className="text-brand-accent hover:underline"
+            className="text-brand-accent hover:underline text-sm sm:text-base"
           >
             Xóa bộ lọc
           </button>
         </div>
       ) : (
-        <div className="grid gap-4">
+        <div className="grid gap-3 sm:gap-4">
           {jobs.map((job) => (
             <JobCard key={job.id} job={job} />
           ))}

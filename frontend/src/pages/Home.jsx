@@ -79,49 +79,49 @@ export const Home = () => {
     <div className="home-container">
       <HeroBanner />
 
-      <section className="featured-companies mb-16">
-        <h2 className="mb-8 text-2xl font-bold text-white">Công ty hàng đầu đang tuyển dụng</h2>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <section className="featured-companies py-8 sm:py-12 md:py-16">
+        <h2 className="mb-6 sm:mb-8 text-xl sm:text-2xl md:text-3xl font-bold text-white">Công ty hàng đầu đang tuyển dụng</h2>
+        <div className="grid grid-cols-1 gap-4 sm:gap-5 md:gap-6 md:grid-cols-2 lg:grid-cols-3">
           {companies.map((company) => (
             <CompanyCard key={company.name} {...company} />
           ))}
         </div>
       </section>
 
-      <section className="featured-jobs mb-16">
-        <h2 className="mb-8 text-2xl font-bold text-white">Việc làm nổi bật</h2>
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <section className="featured-jobs py-8 sm:py-12 md:py-16">
+        <h2 className="mb-6 sm:mb-8 text-xl sm:text-2xl md:text-3xl font-bold text-white">Việc làm nổi bật</h2>
+        <div className="grid grid-cols-1 gap-4 sm:gap-5 md:gap-6 lg:grid-cols-2">
           {featuredJobs.map((job) => (
             <JobCardFull key={job.id} job={job} />
           ))}
         </div>
       </section>
 
-      <section className="it-skills mb-16">
-        <h2 className="mb-8 text-2xl font-bold text-white">Kỹ năng đang cần tuyển</h2>
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+      <section className="it-skills py-8 sm:py-12 md:py-16">
+        <h2 className="mb-6 sm:mb-8 text-xl sm:text-2xl md:text-3xl font-bold text-white">Kỹ năng đang cần tuyển</h2>
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 sm:grid-cols-3 lg:grid-cols-4">
           {skills.map((skill) => (
             <SkillTag key={skill.name} skill={skill.name} count={skill.count} />
           ))}
         </div>
       </section>
 
-      <section className="cta-section mb-8 rounded-[20px] border border-brand-accent/30 bg-gradient-to-r from-brand-accent/20 to-blue-500/20 p-8 text-center md:p-12">
-        <h2 className="mb-4 text-3xl font-bold text-white">Sẵn sàng tìm công việc tiếp theo?</h2>
-        <p className="mx-auto mb-6 max-w-2xl text-white/70">
+      <section className="cta-section py-8 sm:py-12 md:py-16 rounded-[20px] border border-brand-accent/30 bg-gradient-to-r from-brand-accent/20 to-blue-500/20 p-6 sm:p-8 md:p-12 text-center">
+        <h2 className="mb-3 sm:mb-4 text-xl sm:text-2xl md:text-3xl font-bold text-white">Sẵn sàng tìm công việc tiếp theo?</h2>
+        <p className="mx-auto mb-6 sm:mb-8 max-w-2xl text-sm sm:text-base text-white/70">
           Tham gia cùng hàng ngàn ứng viên để tìm công việc mơ ước nhanh hơn, rõ ràng hơn và dễ theo dõi hơn.
         </p>
-        <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <div className="flex flex-col gap-3 sm:gap-4 sm:flex-row sm:items-center sm:justify-center">
           <button
             type="button"
-            className="inline-flex items-center justify-center rounded-full bg-brand-accent px-8 py-3 text-lg font-semibold text-white shadow-red-glow transition hover:bg-[#cf141b]"
+            className="inline-flex items-center justify-center rounded-full bg-brand-accent px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-lg font-semibold text-white shadow-red-glow transition hover:bg-[#cf141b]"
             onClick={handlePrimaryAction}
           >
             {isAuthenticated ? 'Mở hồ sơ của tôi' : 'Bắt đầu đăng nhập'}
           </button>
           <button
             type="button"
-            className="inline-flex items-center justify-center rounded-full border border-white/20 px-8 py-3 text-lg font-semibold text-white transition hover:border-white/40 hover:bg-white/5"
+            className="inline-flex items-center justify-center rounded-full border border-white/20 px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-lg font-semibold text-white transition hover:border-white/40 hover:bg-white/5"
             onClick={() => navigate('/jobs')}
           >
             Xem danh sách việc làm
@@ -129,33 +129,33 @@ export const Home = () => {
         </div>
       </section>
 
-      <section className="mb-8 grid gap-6 rounded-[28px] border border-white/10 bg-white/[0.04] p-6 sm:p-8 lg:grid-cols-[1.2fr_0.8fr]">
+      <section className="py-8 sm:py-12 md:py-16 grid gap-4 sm:gap-6 rounded-[28px] border border-white/10 bg-white/[0.04] p-6 sm:p-8 lg:grid-cols-[1.2fr_0.8fr]">
         <div>
-          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.28em] text-brand-accent/85">
+          <p className="mb-3 text-xs sm:text-sm font-semibold uppercase tracking-[0.28em] text-brand-accent/85">
             Tài khoản HOT CV
           </p>
-          <h2 className="text-3xl font-bold text-white">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white">
             {isAuthenticated ? `Chào mừng trở lại, ${user?.full_name || user?.email || 'bạn'}` : 'Đăng nhập để đồng bộ hành trình tìm việc'}
           </h2>
-          <p className="mt-4 max-w-2xl text-base leading-7 text-white/65">
+          <p className="mt-3 sm:mt-4 max-w-2xl text-xs sm:text-sm md:text-base leading-6 sm:leading-7 text-white/65">
             {isAuthenticated
               ? 'Trang chính giờ sẽ dẫn bạn nhanh đến hồ sơ, lịch sử ứng tuyển và các thao tác đã đăng nhập.'
               : 'Tài khoản giúp bạn lưu hồ sơ, theo dõi ứng tuyển và quay lại trang chính với đúng điểm đang thao tác.'}
           </p>
         </div>
 
-        <div className="rounded-[24px] border border-white/10 bg-black/30 p-5">
-          <div className="space-y-4 text-sm text-white/75">
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <p className="font-semibold text-white">1. Đi từ trang chủ sang đăng nhập</p>
+        <div className="rounded-[24px] border border-white/10 bg-black/30 p-4 sm:p-5">
+          <div className="space-y-3 sm:space-y-4 text-xs sm:text-sm text-white/75">
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-3 sm:p-4">
+              <p className="font-semibold text-white text-xs sm:text-sm">1. Đi từ trang chủ sang đăng nhập</p>
               <p className="mt-1">Nút trong header và CTA dưới banner đều đưa bạn đến màn hình đăng nhập mới.</p>
             </div>
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <p className="font-semibold text-white">2. Đăng nhập xong quay lại đúng chỗ</p>
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-3 sm:p-4">
+              <p className="font-semibold text-white text-xs sm:text-sm">2. Đăng nhập xong quay lại đúng chỗ</p>
               <p className="mt-1">Nếu bạn vào từ một trang cần xác thực, hệ thống sẽ đưa bạn về đúng nơi vừa rời.</p>
             </div>
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <p className="font-semibold text-white">3. Trang chính đổi theo trạng thái</p>
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-3 sm:p-4">
+              <p className="font-semibold text-white text-xs sm:text-sm">3. Trang chính đổi theo trạng thái</p>
               <p className="mt-1">Sau khi vào tài khoản, CTA chuyển thành mở hồ sơ và menu hiện thêm khu vực cá nhân.</p>
             </div>
           </div>

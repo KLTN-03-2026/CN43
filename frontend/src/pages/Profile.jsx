@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import { useToast } from '../hooks/useToast';
 
 const ChevronIcon = ({ open }) => (
   <svg
@@ -77,10 +78,14 @@ const menuGroups = [
 ];
 
 export const Profile = () => {
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, user, updateProfile } = useAuth();
+  const { showToast } = useToast();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [menuExpanded, setMenuExpanded] = useState(true);
+  const [isEditingProfile, setIsEditingProfile] = useState(false);
+  const [isSavingProfile, setIsSavingProfile] = useState(false);
+  const [fullNameDraft, setFullNameDraft] = useState(user?.full_name || '');
   const [openSections, setOpenSections] = useState(() =>
     menuGroups.reduce((accumulator, group) => {
       accumulator[group.key] = group.defaultOpen;
@@ -106,11 +111,44 @@ export const Profile = () => {
     );
   }, [activeTabKey]);
 
+  useEffect(() => {
+    setFullNameDraft(user?.full_name || '');
+  }, [user?.full_name]);
+
   const toggleSection = (key) => {
     setOpenSections((current) => ({
       ...current,
       [key]: !current[key],
     }));
+  };
+
+  const startEditProfile = () => {
+    setFullNameDraft(user?.full_name || '');
+    setIsEditingProfile(true);
+  };
+
+  const cancelEditProfile = () => {
+    setFullNameDraft(user?.full_name || '');
+    setIsEditingProfile(false);
+  };
+
+  const submitProfileUpdate = async () => {
+    const normalizedName = fullNameDraft.trim();
+    if (!normalizedName) {
+      showToast('Họ và tên không được để trống', true);
+      return;
+    }
+
+    try {
+      setIsSavingProfile(true);
+      await updateProfile({ full_name: normalizedName });
+      setIsEditingProfile(false);
+      showToast('Cập nhật hồ sơ thành công');
+    } catch (error) {
+      showToast(error?.message || 'Không thể cập nhật hồ sơ', true);
+    } finally {
+      setIsSavingProfile(false);
+    }
   };
 
   if (!isAuthenticated) {
@@ -216,7 +254,17 @@ export const Profile = () => {
 
             <div>
               <label className="form-label">Họ và tên</label>
-              <p className="mt-2 text-white/80">{user?.full_name || 'N/A'}</p>
+              {isEditingProfile ? (
+                <input
+                  value={fullNameDraft}
+                  onChange={(event) => setFullNameDraft(event.target.value)}
+                  maxLength={255}
+                  className="mt-2 w-full rounded-lg border border-white/20 bg-white/[0.04] px-3 py-2 text-white outline-none transition focus:border-brand-accent"
+                  placeholder="Nhập họ và tên"
+                />
+              ) : (
+                <p className="mt-2 text-white/80">{user?.full_name || 'N/A'}</p>
+              )}
             </div>
 
             <div>
@@ -233,12 +281,34 @@ export const Profile = () => {
           </div>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <button
-              type="button"
-              className="rounded-lg bg-brand-accent px-6 py-3 font-semibold text-white transition hover:bg-[#cf141b]"
-            >
-              Chỉnh sửa hồ sơ
-            </button>
+            {isEditingProfile ? (
+              <>
+                <button
+                  type="button"
+                  className="rounded-lg bg-brand-accent px-6 py-3 font-semibold text-white transition hover:bg-[#cf141b] disabled:cursor-not-allowed disabled:opacity-60"
+                  onClick={submitProfileUpdate}
+                  disabled={isSavingProfile}
+                >
+                  {isSavingProfile ? 'Đang lưu...' : 'Lưu thay đổi'}
+                </button>
+                <button
+                  type="button"
+                  className="rounded-lg border border-white/15 px-6 py-3 font-semibold text-white/80 transition hover:border-white/30 hover:bg-white/[0.04] disabled:cursor-not-allowed disabled:opacity-60"
+                  onClick={cancelEditProfile}
+                  disabled={isSavingProfile}
+                >
+                  Hủy
+                </button>
+              </>
+            ) : (
+              <button
+                type="button"
+                className="rounded-lg bg-brand-accent px-6 py-3 font-semibold text-white transition hover:bg-[#cf141b]"
+                onClick={startEditProfile}
+              >
+                Chỉnh sửa hồ sơ
+              </button>
+            )}
             <button
               type="button"
               className="rounded-lg border border-white/15 px-6 py-3 font-semibold text-white/80 transition hover:border-white/30 hover:bg-white/[0.04]"

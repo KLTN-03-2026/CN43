@@ -24,9 +24,33 @@ cp .env.example .env
 
 # Edit .env with your settings:
 # - GEMINI_API_KEY: Get from https://console.cloud.google.com
-# - SMTP_HOST: Your email provider SMTP (e.g., smtp.gmail.com)
-# - SMTP_USERNAME/PASSWORD: Email credentials
+# - SMTP_HOST: Your email provider SMTP (for Gmail use smtp.gmail.com)
+# - SMTP_USERNAME/PASSWORD: Gmail address and App Password
 # - SECRET_KEY: Change to a long random string for production
+```
+
+### 2.1 Configure Gmail SMTP for OTP
+If you want to send OTP codes through Gmail, follow these steps:
+
+1. Open your Google Account and enable 2-Step Verification.
+2. Create an App Password for Mail.
+3. Put the App Password into `SMTP_PASSWORD`.
+4. Set `SMTP_HOST=smtp.gmail.com` and `SMTP_PORT=587`.
+5. Set `SMTP_USERNAME` to the Gmail address that will send OTP emails.
+6. Keep `SMTP_USE_TLS=true`.
+7. Set `SMTP_DEBUG=false` when you want real emails to be sent.
+8. Restart the backend after changing `.env`.
+
+Example:
+```env
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USERNAME=yourname@gmail.com
+SMTP_PASSWORD=your-app-password
+SMTP_FROM_EMAIL=yourname@gmail.com
+SMTP_FROM_NAME=HOT CV
+SMTP_USE_TLS=true
+SMTP_DEBUG=false
 ```
 
 ### 3. Run Server
